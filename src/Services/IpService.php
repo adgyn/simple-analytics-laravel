@@ -13,19 +13,19 @@ class IpService
      * @param string $ip
      * @return Collection
      */
-    public static function getCountryData(string $ip): Collection
+    public static function getCountryData(string $ip): object
     {
         $response = Curl::to('https://api.iplocation.net/?ip='.$ip)->returnResponseObject()->asJson()->get();
-        if($response->status == 200) {
-            return collect([
+        if($response->status == 200 AND $response->content->country_name != '-') {
+            return (object) [
                 'country' => $response->content->country_name,
                 'code' => $response->content->country_code2,
-            ]);
+            ];
         }
 
-        return collect([
+        return (object) [
             'country' => 'Not found',
             'code' => 'N/A',
-        ]);
+        ];
     }
 }
