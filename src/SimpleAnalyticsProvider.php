@@ -19,10 +19,13 @@ class SimpleAnalyticsProvider extends ServiceProvider
         $migrations = [];
         foreach (glob(__DIR__.'/../database/migrations/*.php') as $migration) {
             $migrations[$migration] = database_path('migrations/').now()->format('Y_m_d_His_').Str::after($migration, 'migration_');
+            sleep(1);
         }
 
         if(!empty($migrations)) {
             $this->publishesMigrations($migrations, 'simple-analytics');
         }
+
+        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
     }
 }
