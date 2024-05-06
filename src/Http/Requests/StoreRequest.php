@@ -35,9 +35,9 @@ class StoreRequest extends FormRequest
      */
     protected function prepareForValidation()
     {
-        $label = str_replace(' ', '_', $this->label);
+        $label = str_replace(' ', '_', $this->event_label);
         $label = mb_strtolower(iconv('UTF-8', 'ASCII//TRANSLIT', $label));
         $label = preg_replace('/[^a-zA-Z0-9_]/', '', $label);
-        $this->merge(['label' => $label]);
+        $this->merge(['event_label' => $label]);
     }
 }
