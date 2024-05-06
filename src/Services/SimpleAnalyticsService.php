@@ -6,7 +6,6 @@ use Adgyn\SimpleAnalytics\Models\Event;
 use Illuminate\Support\Str;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cookie;
 
 class SimpleAnalyticsService
 {
@@ -18,15 +17,20 @@ class SimpleAnalyticsService
      */
     public function store(Request $request): JsonResponse
     {
-        $hash = Cookie::get('user_hash');
+        $hash = $request->cookie('user_hash');
+        $cookie = null;
         if(empty($hash)) {
             $hash = Str::uuid()->toString();
-            Cookie::make('user_hash', $hash, config('simple_analytics.session_timeout'), null, null, true, true);
+            $cookie = cookie('user_hash', $hash, config('simple_analytics.session_timeout'))->withHttpOnly();
         }
 
         $request->merge(['reference' => $hash]);
 
         Event::create($request->only('event_name', 'event_label', 'route', 'reference'));
+
+        if(!empty($cookie)) {
+            return response()->json(['message' => 'Event registred.'], 201)->cookie($cookie);
+        }
 
         return response()->json(['message' => 'Event registred.'], 201);
     }
