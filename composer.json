@@ -17,5 +17,12 @@
     "require": {
         "php": "^8.2",
         "illuminate/support": "^11.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Adgyn\\SimpleAnalytics\\SimpleAnalyticsProvider"
+            ]
+        }
     }
 }
