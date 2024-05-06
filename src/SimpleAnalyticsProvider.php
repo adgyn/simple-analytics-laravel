@@ -13,7 +13,7 @@ class SimpleAnalyticsProvider extends ServiceProvider
     public function boot(): void
     {
         $this->publishes([
-            __DIR__.'/../config/analytics.php' => config_path('analytics.php'),
+            __DIR__.'/../config/simple_analytics.php' => config_path('simple_analytics.php'),
         ], 'simple-analytics');
 
         $migrations = [];

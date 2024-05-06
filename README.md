@@ -10,3 +10,9 @@ Publish the package settings.
 ```
 php artisan vendor:publish --tag=simple-analytics
 ```
+
+
+Run laravel migrations.
+```
+php artisan migrate
+```
