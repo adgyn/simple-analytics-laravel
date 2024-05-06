@@ -27,7 +27,7 @@ class SimpleAnalyticsService
 
         $request->merge(['reference' => $hash]);
 
-        Event::create($request->only('event_name', 'event_label', 'route'));
+        Event::create($request->only('event_name', 'event_label', 'route', 'reference'));
 
         return response()->json(['message' => 'Event registred.'], 201);
     }
