@@ -22,8 +22,8 @@ class DataRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'start_at' => 'data_format:Y-m-d H:i:s',
-            'finish_at' => 'data_format:Y-m-d H:i:s',
+            'start_at' => 'date_format:Y-m-d H:i:s',
+            'finish_at' => 'date_format:Y-m-d H:i:s',
             'detailed' => 'boolean',
             'routes' => 'array',
             'routes.*' => 'string',

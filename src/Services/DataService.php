@@ -130,7 +130,7 @@ class DataService
         $eventInstance = Event::when(!empty($this->start), function($query) {
             $query->where('created_at', '>=', $this->start);
         })->when(!empty($this->finish), function($query) {
-            $query->where('created_at', '>', $this->finish);
+            $query->where('created_at', '<=', $this->finish);
         })->when(!empty($this->routes), function($query) {
             $query->whereIn('route', $this->routes);
         })->when(!empty($this->countries), function($query) {
@@ -141,7 +141,17 @@ class DataService
 
         if(!$this->detailed) {
             return response()->json([
-                'unique_visitors' => $eventInstance->clone()->groupBy('user_hash')->count('id'),
+                'unique_visitors' => $eventInstance->clone()->distinct()->count('user_hash'),
+                'visitors' => $eventInstance->clone()->count('id'),
+                'countries' => $eventInstance->clone()->distinct()->count('country_code'),
+                'events' => $eventInstance->clone()->distinct()->count('event_label'),
+                'routes' => $eventInstance->clone()->distinct()->count('route'),
+            ], 200);
+        } else {
+            return response()->json([
+                'routes' => $eventInstance->clone()->selectRaw('route, COUNT(DISTINCT user_hash) as unique_visitors, COUNT(user_hash) as visitors')->groupBy('route')->get(),
+                'countries' => $eventInstance->clone()->selectRaw('MAX(country) as country, COUNT(DISTINCT user_hash) as unique_visitors, COUNT(user_hash) as visitors')->groupBy('country_code')->get(),
+                'events' => $eventInstance->clone()->selectRaw('MAX(event_name) as event, COUNT(DISTINCT user_hash) as unique_visitors, COUNT(user_hash) as visitors')->groupBy('event_label')->get(),
             ], 200);
         }
     }
