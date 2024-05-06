@@ -6,7 +6,6 @@ use Adgyn\SimpleAnalytics\Models\Event;
 use Illuminate\Support\Str;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Cookie;
 
 class SimpleAnalyticsService
@@ -19,7 +18,7 @@ class SimpleAnalyticsService
      */
     public function store(Request $request): JsonResponse
     {
-        $hash = Cache::get('user_hash');
+        $hash = Cookie::get('user_hash');
         if(empty($hash)) {
             $hash = Str::uuid()->toString();
             Cookie::make('user_hash', $hash, config('simple_analytics.session_timeout'), null, null, true, true);
