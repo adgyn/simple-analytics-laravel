@@ -2,6 +2,7 @@
 
 namespace Adgyn\SimpleAnalytics\Http\Requests;
 
+use Adgyn\SimpleAnalytics\Services\IpService;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRequest extends FormRequest
@@ -38,6 +39,14 @@ class StoreRequest extends FormRequest
         $label = str_replace(' ', '_', $this->event_label);
         $label = mb_strtolower(iconv('UTF-8', 'ASCII//TRANSLIT', $label));
         $label = preg_replace('/[^a-zA-Z0-9_]/', '', $label);
-        $this->merge(['event_label' => $label]);
+        $this->merge([]);
+
+        $countryData = IpService::getCountryData($this->ip());
+        
+        $this->merge([
+            'event_label' => $label,
+            'country' => $countryData->country,
+            'country_code' => $countryData->code,
+        ]);
     }
 }
