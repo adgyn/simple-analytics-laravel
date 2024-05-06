@@ -1,0 +1,21 @@
+{
+    "name": "adgyn/simple-analytics-laravel",
+    "description": "Focused on creating analyses for decision-making.",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Adgyn\\SimpleAnalytics\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Wanderson Costa",
+            "email": "wcostaprijo@hotmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "illuminate/support": "^11.0"
+    }
+}
