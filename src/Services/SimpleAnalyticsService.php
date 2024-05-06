@@ -34,4 +34,42 @@ class SimpleAnalyticsService
 
         return response()->json(['message' => 'Event registred.'], 201);
     }
+
+    /**
+     * Return analytics data
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function data(Request $request): JsonResponse
+    {
+        $data = new DataService;
+
+        if($request->has('start_at')) {
+            $data->start($request->safe()->start_at);
+        }
+
+        if($request->has('finish_at')) {
+            $data->finish($request->safe()->finish_at);
+        }
+
+        if($request->has('detailed')) {
+            $data->detailed();
+        }
+
+        if($request->has('routes')) {
+            $data->routes($request->safe()->routes);
+        }
+
+        if($request->has('countries')) {
+            $data->countries($request->safe()->countries);
+        }
+
+        if($request->has('references')) {
+            $data->references($request->safe()->references);
+        }
+
+        return $data->get();
+    }
+
 }
