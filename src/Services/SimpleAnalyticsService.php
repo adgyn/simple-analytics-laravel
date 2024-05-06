@@ -24,9 +24,9 @@ class SimpleAnalyticsService
             $cookie = cookie('user_hash', $hash, config('simple_analytics.session_timeout'))->withHttpOnly();
         }
 
-        $request->merge(['reference' => $hash]);
+        $request->merge(['user_hash' => $hash]);
 
-        Event::create($request->only('event_name', 'event_label', 'route', 'reference', 'country', 'country_code'));
+        Event::create($request->only('event_name', 'event_label', 'route', 'reference', 'country', 'country_code', 'user_hash'));
 
         if(!empty($cookie)) {
             return response()->json(['message' => 'Event registred.'], 201)->cookie($cookie);

@@ -26,6 +26,7 @@ class StoreRequest extends FormRequest
             'event_name' => 'required|string|min:5',
             'event_label' => 'required|string|min:5',
             'route' => 'required|string',
+            'reference' => 'nullable',
         ];
     }
 
@@ -39,10 +40,9 @@ class StoreRequest extends FormRequest
         $label = str_replace(' ', '_', $this->event_label);
         $label = mb_strtolower(iconv('UTF-8', 'ASCII//TRANSLIT', $label));
         $label = preg_replace('/[^a-zA-Z0-9_]/', '', $label);
-        $this->merge([]);
 
         $countryData = IpService::getCountryData($this->ip());
-        
+
         $this->merge([
             'event_label' => $label,
             'country' => $countryData->country,

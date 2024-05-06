@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('event_name');
             $table->string('event_label')->index();
             $table->string('route')->nullable()->index();
+            $table->string('user_hash')->nullable()->index();
             $table->string('reference')->nullable()->index();
             $table->string('country')->nullable()->index();
             $table->string('country_code')->nullable()->index();
