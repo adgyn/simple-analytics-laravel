@@ -5,12 +5,15 @@ Pull this package in through Composer.
 composer require adgyn/simple-analytics-laravel
 ```
 
-
 Publish the package settings.
 ```
 php artisan vendor:publish --tag=simple-analytics
 ```
 
+Run laravel migrations.
+```
+php artisan migrate
+```
 
 ## Usage
 
@@ -47,3 +50,4 @@ detailed | Returns detailed data by route, country, etc. | No | Boolean | false
 routes | List of routes to filter by | No | Array<String> | []
 reference | List of references to filter by | No | Array<String> | []
 countries | List of countries codes to filter by. EX: BR | No | Array<String> | []
+  
