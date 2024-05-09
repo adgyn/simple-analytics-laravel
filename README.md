@@ -55,4 +55,62 @@ detailed | Returns detailed data by route, country, etc. | No | Boolean | false
 routes | List of routes to filter by | No | Array<String> | []
 reference | List of references to filter by | No | Array<String> | []
 countries | List of countries codes to filter by. EX: BR | No | Array<String> | []
+
+Example response (Detailed: false):
+```json
+{
+	"unique_visitors": 4,
+	"visitors": 8,
+	"countries": 1,
+	"events": 3,
+	"routes": 3
+}
+```
+
+Example response (Detailed: true):
+```json
+{
+	"routes": [
+		{
+			"route": "\/dashboard",
+			"unique_visitors": 1,
+			"visitors": 1
+		},
+		{
+			"route": "\/dashboard\/payment",
+			"unique_visitors": 3,
+			"visitors": 5
+		},
+		{
+			"route": "\/dashboard\/test",
+			"unique_visitors": 1,
+			"visitors": 2
+		}
+	],
+	"countries": [
+		{
+			"country": "Not found",
+			"unique_visitors": 4,
+			"visitors": 8
+		}
+	],
+	"events": [
+		{
+			"event": "On Click",
+			"unique_visitors": 1,
+			"visitors": 1
+		},
+		{
+			"event": "Event Test",
+			"unique_visitors": 1,
+			"visitors": 1
+		},
+		{
+			"event": "Click on payment button",
+			"unique_visitors": 3,
+			"visitors": 6
+		}
+	]
+}
+```
   
