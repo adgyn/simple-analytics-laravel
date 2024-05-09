@@ -1,3 +1,8 @@
+## Requirements
+
+- [x] PHP 8.2 or later
+- [x] Laravel 11.x or later
+
 ## Installation
 
 Pull this package in through Composer.
