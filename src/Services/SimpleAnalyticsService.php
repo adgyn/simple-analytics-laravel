@@ -54,7 +54,7 @@ class SimpleAnalyticsService
         }
 
         if($request->has('detailed')) {
-            $data->detailed();
+            $data->detailed($request->safe()->detailed);
         }
 
         if($request->has('routes')) {

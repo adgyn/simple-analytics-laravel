@@ -83,9 +83,9 @@ class DataService
      *
      * @return self
      */
-    public function detailed(): self
+    public function detailed(bool $detailed = false): self
     {
-        $this->detailed = true;
+        $this->detailed = $detailed;
         return $this;
     }
 
